@@ -53,7 +53,7 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.index') }}">Личный кабинет</a>
+                        <a class="nav-link" href="{{ route('user.index') }}">{{ auth()->user()->name }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('auth.logout') }}">Выйти</a>

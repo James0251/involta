@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// маршрут для главной страницы без указания метода
+Route::get('/', 'IndexController')->name('index');
 
 /*
  * Регистрация, вход в ЛК, восстановление пароля
