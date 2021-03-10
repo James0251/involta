@@ -163,6 +163,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        App\Providers\RoleServiceProvider::class,
+        App\Providers\PermissionServiceProvider::class,
 
         /*
          * Package Service Providers...

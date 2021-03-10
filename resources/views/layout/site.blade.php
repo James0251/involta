@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <!-- Логотип и кнопка «Гамбургер» -->
         <a class="navbar-brand" href="/">Блог</a>

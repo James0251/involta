@@ -62,3 +62,25 @@ Route::group([
         ->where('id', '[0-9]+')
         ->name('verify-email');
 });
+
+/*
+ * Личный кабинет пользователя
+ */
+Route::group([
+    'as' => 'user.', // имя маршрута, например user.index
+    'prefix' => 'user', // префикс маршрута, например user/index
+    'namespace' => 'User', // пространство имен контроллеров
+    'middleware' => ['auth'] // один или несколько посредников
+], function () {
+    // главная страница
+    Route::get('index', 'IndexController')->name('index');
+});
+
+/*
+ *  Вход для Админа
+ */
+Route::group(['middleware' => 'role:admin'], function() {
+    Route::get('/admin/index', function() {
+        return 'Это панель управления сайта';
+    });
+});
