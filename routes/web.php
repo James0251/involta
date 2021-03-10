@@ -83,3 +83,24 @@ Route::group(['middleware' => 'role:admin'], function() {
         return 'Это панель управления сайта';
     });
 });
+
+/*
+ * Блог: все посты, посты категории, посты тега, страница поста
+ */
+Route::group([
+    'as' => 'blog.', // имя маршрута, например blog.index
+    'prefix' => 'blog', // префикс маршрута, например blog/index
+], function () {
+    // главная страница (все посты)
+    Route::get('index', 'BlogController@index')
+        ->name('index');
+    // категория блога (посты категории)
+    Route::get('category/{category:slug}', 'BlogController@category')
+        ->name('category');
+    // тег блога (посты с этим тегом)
+    Route::get('tag/{tag:slug}', 'BlogController@tag')
+        ->name('tag');
+    // страница поста блога
+    Route::get('post/{post:slug}', 'BlogController@post')
+        ->name('post');
+});
