@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,15 +93,19 @@ Route::group([
     'prefix' => 'blog', // префикс маршрута, например blog/index
 ], function () {
     // главная страница (все посты)
-    Route::get('index', 'BlogController@index')
+    Route::get('index', [BlogController::class, 'index'])
         ->name('index');
     // категория блога (посты категории)
-    Route::get('category/{category:slug}', 'BlogController@category')
+    Route::get('category/{category:slug}', [BlogController::class, 'category'])
         ->name('category');
     // тег блога (посты с этим тегом)
-    Route::get('tag/{tag:slug}', 'BlogController@tag')
+    Route::get('tag/{tag:slug}', [BlogController::class, 'tag'])
         ->name('tag');
-    // страница поста блога
-    Route::get('post/{post:slug}', 'BlogController@post')
+    // автор блога (посты этого автора)
+    Route::get('author/{user}', [BlogController::class, 'author'])
+        ->name('author');
+    // страница просмотра поста блога
+    Route::get('post/{post:slug}', [BlogController::class, 'post'])
         ->name('post');
 });
+

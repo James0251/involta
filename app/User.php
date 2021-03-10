@@ -11,6 +11,14 @@ class User extends Authenticatable {
     use Notifiable, HasRolesAndPermissions;
 
     /**
+     * Связь модели User с моделью Post, позволяет получить все
+     * посты пользователя
+     */
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

@@ -35,7 +35,7 @@ class ComposerServiceProvider extends ServiceProvider {
         View::composer('layout.part.categories', function($view) {
             static $first = true;
             if ($first) {
-                $view->with(['items' => Category::hierarchy()]);
+                $view->with(['items' => Category::all()]);
             }
             $first = false;
         });

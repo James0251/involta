@@ -9,7 +9,7 @@
                    required maxlength="255" value="{{ old('email') ?? '' }}">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="password" placeholder="Ваш пароль"
+            <input type="password" class="form-control" name="password" placeholder="Ваш пароль"
                    required maxlength="255" value="">
         </div>
         <div class="form-group form-check">
