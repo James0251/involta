@@ -7,17 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model {
 
+    protected $fillable = [
+        'user_id',
+        'category_id',
+        'name',
+        'slug',
+        'excerpt',
+        'content',
+        'image',
+    ];
+
     /**
      * Количество постов на странице при пагинации
      */
     protected $perPage = 5;
-
-    /**
-     * Выбирать из БД только опубликовынные посты
-     */
-    public function scopePublished($builder) {
-        return $builder->whereNotNull('published_by');
-    }
 
     /**
      * Связь модели Post с моделью Tag, позволяет получить
@@ -41,5 +44,51 @@ class Post extends Model {
      */
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Связь модели Post с моделью User, позволяет получить
+     * администратора, который разрешил публикацию поста
+     */
+    public function editor() {
+        return $this->belongsTo(User::class, 'published_by');
+    }
+
+    /**
+     * Связь модели Post с моделью Comment, позволяет получить
+     * все комментарии к посту
+     */
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Разрешить публикацию поста блога
+     */
+    public function enable() {
+        $this->published_by = auth()->user()->id;
+        $this->update();
+    }
+
+    /**
+     * Запретить публикацию поста блога
+     */
+    public function disable() {
+        $this->published_by = null;
+        $this->update();
+    }
+
+    /**
+     * Возвращает true, если публикация разрешена
+     */
+    public function isVisible() {
+        return ! is_null($this->published_by);
+    }
+
+    /**
+     * Выбирать из БД только опубликованные посты
+     */
+    public function scopePublished($builder) {
+        return $builder->whereNotNull('published_by');
     }
 }

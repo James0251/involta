@@ -109,3 +109,26 @@ Route::group([
         ->name('post');
 });
 
+/*
+ * Панель управления: CRUD-операции над постами, категориями, тегами
+ */
+Route::group([
+    'as' => 'admin.', // имя маршрута, например admin.index
+    'prefix' => 'admin', // префикс маршрута, например admin/index
+    'namespace' => 'Admin', // пространство имен контроллеров
+    'middleware' => ['auth'] // один или несколько посредников
+], function () {
+    /*
+     * CRUD-операции над постами блога
+     */
+    Route::resource('post', 'PostController', ['except' => ['create', 'store']]);
+    // доп.маршрут для показа постов категории
+    Route::get('post/category/{category}', 'PostController@category')
+        ->name('post.category');
+    // доп.маршрут, чтобы разрешить публикацию поста
+    Route::get('post/enable/{post}', 'PostController@enable')
+        ->name('post.enable');
+    // доп.маршрут, чтобы запретить публикацию поста
+    Route::get('post/disable/{post}', 'PostController@disable')
+        ->name('post.disable');
+});
