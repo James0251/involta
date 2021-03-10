@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 
 class PostController extends Controller {
@@ -59,6 +60,14 @@ class PostController extends Controller {
     }
 
     /**
+     * Сохраняет новый пост в базу данных
+     * @param PostRequest $request
+     */
+    public function store(PostRequest $request) {
+        /* ... */
+    }
+
+    /**
      * Показывает форму редактирования поста
      */
     public function edit(Post $post) {
@@ -70,8 +79,14 @@ class PostController extends Controller {
 
     /**
      * Обновляет пост блога в базе данных
+     * @param PostRequest $request
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Post $post) {
+    /**
+     * Обновляет пост блога в базе данных
+     */
+    public function update(PostRequest $request, Post $post) {
         $post->update($request->all());
         $post->tags()->sync($request->tags);
         // кнопка редактирования может быть нажата в режиме пред.просмотра

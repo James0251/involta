@@ -8,6 +8,21 @@ use Throwable;
 class Handler extends ExceptionHandler
 {
     /**
+     * Convert a validation exception into a response.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Validation\ValidationException $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function invalid($request, $exception) {
+        $redirect = parent::invalid($request, $exception);
+        if (session('frontend')) {
+            return $redirect->with('preview', 'yes');
+        }
+        return $redirect;
+    }
+
+    /**
      * A list of the exception types that are not reported.
      *
      * @var array
