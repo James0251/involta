@@ -122,6 +122,11 @@ Route::group([
     'middleware' => ['auth'] // один или несколько посредников
 ], function () {
     /*
+     * Главная страница панели управления
+     */
+    Route::get('index', 'IndexController')->name('index');
+
+    /*
      * CRUD-операции над постами блога
      */
     Route::resource('post', 'PostController', ['except' => ['create', 'store']]);
