@@ -2,7 +2,7 @@
 @include('blog.part.form')
 @endperm
 
-<h3 id="comment-list">Все комментарии</h3>
+<h3 id="comment-list">Все комментарии поста</h3>
 @if ($comments->count())
     @foreach ($comments as $comment)
         <div class="card mb-3" id="comment-{{ $comment->id }}">
