@@ -44,4 +44,8 @@ class Comment extends Model {
         }
         return (int) ceil(($i+1) / $this->getPerPage());
     }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

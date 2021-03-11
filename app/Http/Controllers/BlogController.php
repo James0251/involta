@@ -7,6 +7,7 @@ use App\Comment;
 use App\Post;
 use App\Tag;
 use App\User;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller {
@@ -26,7 +27,7 @@ class BlogController extends Controller {
      * Страница просмотра отдельного поста блога
      */
     public function post(Post $post) {
-        $comments = $post->comments()
+        $comments = $post->comments()->with('user')
             ->published()
             ->orderBy('created_at')
             ->paginate();
