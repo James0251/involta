@@ -131,4 +131,9 @@ Route::group([
     // доп.маршрут, чтобы запретить публикацию поста
     Route::get('post/disable/{post}', 'PostController@disable')
         ->name('post.disable');
+
+    /*
+     * CRUD-операции над категориями блога
+     */
+    Route::resource('category', 'CategoryController', ['except' => 'show']);
 });
