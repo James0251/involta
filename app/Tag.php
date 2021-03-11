@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model {
 
+    protected $fillable = [
+        'name',
+        'slug',
+    ];
+
     /**
      * Связь модели Tag с моделью Post, позволяет получить посты,
      * связанные с тегом через сводную таблицу post_tag

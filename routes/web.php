@@ -136,4 +136,27 @@ Route::group([
      * CRUD-операции над категориями блога
      */
     Route::resource('category', 'CategoryController', ['except' => 'show']);
+
+    /*
+     * CRUD-операции над тегами блога
+     */
+    Route::resource('tag', 'TagController', ['except' => 'show']);
+
+    /*
+     * Просмотр и редактирование пользователей
+     */
+    Route::resource('user', 'UserController', ['except' => [
+        'create', 'store', 'show', 'destroy'
+    ]]);
+
+    /*
+     * CRUD-операции над комментариями
+     */
+    Route::resource('comment', 'CommentController', ['except' => ['create', 'store']]);
+    // доп.маршрут, чтобы разрешить публикацию комментария
+    Route::get('comment/enable/{comment}', 'CommentController@enable')
+        ->name('comment.enable');
+    // доп.маршрут, чтобы запретить публикацию комментария
+    Route::get('comment/disable/{comment}', 'CommentController@disable')
+        ->name('comment.disable');
 });
