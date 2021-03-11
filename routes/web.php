@@ -107,6 +107,9 @@ Route::group([
     // страница просмотра поста блога
     Route::get('post/{post:slug}', [BlogController::class, 'post'])
         ->name('post');
+    // добавление комментария к посту
+    Route::post('post/{post}/comment', [BlogController::class, 'comment'])
+        ->name('comment');
 });
 
 /*

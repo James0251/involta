@@ -1,3 +1,7 @@
+@perm('create-comment')
+@include('blog.part.form')
+@endperm
+
 <h3 id="comment-list">Все комментарии</h3>
 @if ($comments->count())
     @foreach ($comments as $comment)

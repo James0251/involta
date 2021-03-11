@@ -69,4 +69,24 @@ class BlogController extends Controller {
             ->paginate();
         return view('blog.tag', compact('tag', 'posts'));
     }
+
+    /**
+     * Сохраняет новый комментарий в базу данных
+     */
+    public function comment(CommentRequest $request) {
+        $request->merge(['user_id' => auth()->user()->id]);
+        $message = 'Комментарий добавлен, будет доступен после проверки';
+        if (auth()->user()->hasPermAnyWay('publish-comment')) {
+            $request->merge(['published_by' => auth()->user()->id]);
+            $message = 'Комментарий добавлен и уже доступен для просмотра';
+        }
+        $comment = Comment::create($request->all());
+        // комментариев может быть много, поэтому есть пагинация; надо
+        // перейти на последнюю страницу — новый комментарий будет там
+        $page = $comment->post->comments()->published()->paginate()->lastPage();
+        return redirect()
+            ->route('blog.post', ['post' => $comment->post->slug, 'page' => $page])
+            ->withFragment('comment-list')
+            ->with('success', $message);
+    }
 }
