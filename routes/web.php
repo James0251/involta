@@ -143,7 +143,7 @@ Route::group([
     /*
      * CRUD-операции над категориями блога
      */
-    Route::resource('category', 'CategoryController', ['except' => 'show']);
+    Route::resource('category', 'CategoryController');
 
     /*
      * CRUD-операции над тегами блога

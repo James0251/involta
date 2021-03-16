@@ -12,7 +12,7 @@
         $category_id = old('category_id') ?? $post->category_id ?? 0;
     @endphp
     <select name="category_id" class="form-control" title="Категория">
-        <option value="0">Выберите</option>
+        <option value="0">Выберите категорию:</option>
         @include('admin.part.categories', ['level' => -1, 'parent' => 0])
     </select>
 </div>
@@ -36,6 +36,7 @@
     </div>
 @endisset
 
+{{-- Все тэги --}}
 @include('admin.part.all-tags')
 
 <div class="form-group">
