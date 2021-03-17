@@ -42,10 +42,8 @@ class CategoryRequest extends FormRequest {
                 'max:100',
             ],
             'slug' => [
-                'required',
                 'max:100',
                 $unique,
-                'regex:~^[-_a-z0-9]+$~i',
             ],
             'content' => [
                 'max:500',

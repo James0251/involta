@@ -85,7 +85,6 @@ class BlogController extends Controller {
         // комментариев может быть много, поэтому есть пагинация; надо
         // перейти на последнюю страницу — новый комментарий будет там
         $page = $comment->post->comments()->published()->paginate()->lastPage();
-        {{ dd($page);}}
         return redirect()
             ->route('blog.post', ['post' => $comment->post->slug, 'page' => $page])
             ->withFragment('comment-list')

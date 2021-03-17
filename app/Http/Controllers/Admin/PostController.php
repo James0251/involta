@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Http\Requests\PostRequest;
@@ -64,7 +65,19 @@ class PostController extends Controller {
      * @param PostRequest $request
      */
     public function store(PostRequest $request) {
-        /* ... */
+        $data = $request->input();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $post = (new Post())->create($data);
+
+        if ($post) {
+            return redirect()->route('admin.category.index', ['post' => $post->id])
+                ->with(['success' => 'Новая категория успешно создана']);
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -87,7 +100,12 @@ class PostController extends Controller {
      * Обновляет пост блога в базе данных
      */
     public function update(PostRequest $request, Post $post) {
-        $post->update($request->all());
+        $data = $request->input();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $post->update($data);
         $post->tags()->sync($request->tags);
         // кнопка редактирования может быть нажата в режиме пред.просмотра
         // или в панели управления блогом, так что и редирект будет разный

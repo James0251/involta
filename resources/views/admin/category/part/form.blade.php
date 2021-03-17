@@ -3,10 +3,6 @@
            required maxlength="100" value="{{ old('name') ?? $category->name ?? '' }}">
 </div>
 <div class="form-group">
-    <input type="text" class="form-control" name="slug" placeholder="ЧПУ (на англ.)"
-           required maxlength="100" value="{{ old('slug') ?? $category->slug ?? '' }}">
-</div>
-<div class="form-group">
     @php
         $parent_id = old('parent_id') ?? $category->parent_id ?? 0;
     @endphp

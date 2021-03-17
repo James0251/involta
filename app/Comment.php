@@ -25,6 +25,10 @@ class Comment extends Model {
         return $builder->whereNotNull('published_by');
     }
 
+    public function posts() {
+        return $this->belongsToMany(Post::class)->withTimestamps();
+    }
+
     /**
      * Номер страницы пагинации, на которой расположен комментарий;
      * учитываются все комментарии, в том числе не опубликованные

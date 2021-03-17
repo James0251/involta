@@ -1,21 +1,27 @@
 @csrf
 <div class="form-group">
+    <label for="name">Наименование:</label>
     <input type="text" class="form-control" name="name" placeholder="Наименование"
            required maxlength="100" value="{{ old('name') ?? $post->name ?? '' }}">
 </div>
 <div class="form-group">
-    <input type="text" class="form-control" name="slug" placeholder="ЧПУ (на англ.)"
-           required maxlength="100" value="{{ old('slug') ?? $post->slug ?? '' }}">
-</div>
-<div class="form-group">
     @php
-        $category_id = old('category_id') ?? $post->category_id ?? 0;
+        $parent_id = old('parent_id') ?? $category->parent_id ?? 0;
     @endphp
-    <select name="category_id" class="form-control" title="Категория">
-        <option value="0">Выберите категорию:</option>
-        @include('admin.part.categories', ['level' => -1, 'parent' => 0])
+    <select name="parent_id" class="form-control" title="Родитель">
+        <option value="0" disabled>Выберите категорию</option>
+        @include('admin.part.parents', ['level' => -1, 'parent' => 0])
     </select>
 </div>
+{{--<div class="form-group">--}}
+{{--    @php--}}
+{{--        $category_id = old('category_id') ?? $post->category_id ?? 0;--}}
+{{--    @endphp--}}
+{{--    <select name="category_id" class="form-control" title="Категория">--}}
+{{--        <option value="0">Выберите категорию:</option>--}}
+{{--        @include('admin.part.categories', ['level' => -1, 'parent' => 0])--}}
+{{--    </select>--}}
+{{--</div>--}}
 <div class="form-group">
     <textarea class="form-control" name="excerpt" placeholder="Анонс поста"
               required maxlength="500">{{ old('excerpt') ?? $post->excerpt ?? '' }}</textarea>

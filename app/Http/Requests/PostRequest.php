@@ -42,16 +42,14 @@ class PostRequest extends FormRequest {
                 'max:100',
             ],
             'slug' => [
-                'required',
                 'max:100',
                 $unique,
-                'regex:~^[-_a-z0-9]+$~i',
             ],
-            'category_id' => [
-                'required',
-                'integer',
-                'min:1'
-            ],
+//            'category_id' => [
+//                'required',
+//                'integer',
+//                'min:1'
+//            ],
             'excerpt' => [
                 'required',
                 'min:100',

@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller {
 
@@ -37,10 +38,19 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CategoryRequest $request) {
-        $category = Category::create($request->all());
-        return redirect()
-            ->route('admin.category.index', ['category' => $category->id])
-            ->with('success', 'Новая категория успешно создана');
+        $data = $request->input();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $category = (new Category())->create($data);
+
+        if ($category) {
+            return redirect()->route('admin.category.index', ['category' => $category->id])
+                ->with(['success' => 'Новая категория успешно создана']);
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -57,7 +67,12 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(CategoryRequest $request, Category $category) {
-        $category->update($request->all());
+        $data = $request->input();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $category->update($data);
         return redirect()
             ->route('admin.category.index')
             ->with('success', 'Категория была успешно исправлена');

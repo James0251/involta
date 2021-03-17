@@ -13,12 +13,14 @@
             </h1>
         </div>
         <div class="card-body">
-            <img src="http://via.placeholder.com/1000x300" alt="" class="img-fluid">
-            @perm('manage-posts')
-            {!! $post->content !!}
-            @else
-                <p>{{ $post->excerpt }}</p>
+            <img src="http://via.placeholder.com/1000x300" alt="" class="img-fluid"><br/>
+            <div class="justify-content-center">
+                @perm('manage-posts')
+                {!! $post->content !!}
+                @else
+                    <p>{{ $post->excerpt }}</p>
                 @endperm
+            </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
             <span>
