@@ -38,7 +38,7 @@ class Comment extends Model {
     /**
      * Количество комментриев на странице при пагинации
      */
-    protected $perPage = 5;
+    protected $perPage = 15;
 
     /**
      * Выбирать из БД только опубликованные комментарии
