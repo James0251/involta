@@ -13,6 +13,28 @@ class Comment extends Model {
         'content',
     ];
 
+    public function post() {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function isVisible() {
+        return ! is_null($this->published_by);
+    }
+
+    public function disable() {
+        $this->published_by = null;
+        $this->update();
+    }
+
+    public function enable() {
+        $this->published_by = auth()->user()->id;
+        $this->update();
+    }
+
     /**
      * Количество комментриев на странице при пагинации
      */
@@ -23,10 +45,6 @@ class Comment extends Model {
      */
     public function scopePublished($builder) {
         return $builder->whereNotNull('published_by');
-    }
-
-    public function posts() {
-        return $this->belongsToMany(Post::class)->withTimestamps();
     }
 
     /**
@@ -47,9 +65,5 @@ class Comment extends Model {
             }
         }
         return (int) ceil(($i+1) / $this->getPerPage());
-    }
-
-    public function user() {
-        return $this->belongsTo(User::class);
     }
 }

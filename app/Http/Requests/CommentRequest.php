@@ -31,7 +31,7 @@ class CommentRequest extends FormRequest {
         if ($this->route()->getName() == 'blog.comment') {
             $rules['post_id'] = [
                 'required',
-                'numeric',
+                'integer',
                 'min:1',
                 'exists:posts,id'
             ];
@@ -48,7 +48,7 @@ class CommentRequest extends FormRequest {
         return [
             'required' => 'Поле «:attribute» обязательно для заполнения',
             'max' => 'Поле «:attribute» должно быть не больше :max символов',
-            'numeric' => 'Идентификатор публикации должен быть числом',
+            'integer' => 'Идентификатор публикации должен быть числом',
             'min' => 'Идентификатор публикации должен быть :min или больше',
             'exists' => 'Публикации с таким идентификатором не существует',
         ];

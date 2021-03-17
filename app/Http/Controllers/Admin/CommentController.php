@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
+use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller {
 
     public function __construct() {
+        $this->middleware('auth');
         $this->middleware('perm:manage-comments')->only(['index', 'show']);
         $this->middleware('perm:edit-comment')->only('update');
         $this->middleware('perm:publish-comment')->only(['enable', 'disable']);
@@ -20,8 +23,10 @@ class CommentController extends Controller {
      * Показывает список всех комментариев
      */
     public function index() {
+        $users = User::paginate(8);
+        $posts = Post::orderBy('created_at', 'desc')->paginate();
         $comments = Comment::orderBy('created_at', 'desc')->paginate();
-        return view('admin.comment.index', compact('comments'));
+        return view('admin.comment.index', compact('comments', 'posts', 'users'));
     }
 
     /**
