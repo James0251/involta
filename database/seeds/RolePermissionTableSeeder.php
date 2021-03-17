@@ -17,7 +17,7 @@ class RolePermissionTableSeeder extends Seeder {
                 }
             }
             if ($role->slug == 'user') { // для обычного пользователя совсем чуть-чуть
-                $slugs = ['create-post', 'create-comment'];
+                $slugs = ['create-post', 'create-comment', 'create-tag'];
                 foreach ($slugs as $slug) {
                     $perm = App\Permission::where('slug', $slug)->first();
                     $role->permissions()->attach($perm->id);

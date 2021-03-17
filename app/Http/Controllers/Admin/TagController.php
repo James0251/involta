@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Tag;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,7 +21,7 @@ class TagController extends Controller {
      * Показывает список всех тегов блога
      */
     public function index() {
-        $items = Tag::paginate(8);
+        $items = Tag::paginate(15);
         return view('admin.tag.index', compact('items'));
     }
 
@@ -35,11 +36,21 @@ class TagController extends Controller {
      * Сохраняет новый тег в базу данных
      */
     public function store(Request $request) {
+
         $this->validator($request->all(), null)->validate();
-        $tag = Tag::create($request->all());
-        return redirect()
-            ->route('admin.tag.index')
-            ->with('success', 'Новый тег блога успешно создан');
+
+        $data = $request->input();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $tag = (new Tag())->create($data);
+        if ($tag) {
+            return redirect()->route('admin.tag.index', ['tag' => $tag->id])
+                ->with('success', 'Новый тег блога успешно создан');
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -54,7 +65,13 @@ class TagController extends Controller {
      */
     public function update(Request $request, Tag $tag) {
         $this->validator($request->all(), $tag->id)->validate();
-        $tag->update($request->all());
+
+        $data = $request->input();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $tag->update($data);
         return redirect()
             ->route('admin.tag.index')
             ->with('success', 'Тег блога был успешно исправлен');
@@ -87,10 +104,8 @@ class TagController extends Controller {
                 'max:50',
             ],
             'slug' => [
-                'required',
                 'max:50',
                 $unique,
-                'regex:~^[-_a-z0-9]+$~i',
             ]
         ];
         $messages = [

@@ -62,7 +62,6 @@ class PostController extends Controller {
 
     /**
      * Сохраняет новый пост в базу данных
-     * @param PostRequest $request
      */
     public function store(PostRequest $request) {
         $data = $request->input();

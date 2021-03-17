@@ -45,11 +45,6 @@ class PostRequest extends FormRequest {
                 'max:100',
                 $unique,
             ],
-//            'category_id' => [
-//                'required',
-//                'integer',
-//                'min:1'
-//            ],
             'excerpt' => [
                 'required',
                 'min:100',
@@ -57,7 +52,7 @@ class PostRequest extends FormRequest {
             ],
             'content' => [
                 'required',
-                'min:500',
+                'min:100',
             ],
             'image' => [
                 'mimes:jpeg,jpg,png',

@@ -39,6 +39,12 @@ class PermissionTableSeeder extends Seeder {
             ['slug' => 'edit-comment', 'name' => 'Редактирование комментария к посту'],
             ['slug' => 'publish-comment', 'name' => 'Публикация комментария к посту'],
             ['slug' => 'delete-comment', 'name' => 'Удаление комментария к посту'],
+
+            ['slug' => 'manage-tags', 'name' => 'Управление тэгами блога'],
+            ['slug' => 'create-tag', 'name' => 'Создание тэга к посту'],
+            ['slug' => 'edit-tag', 'name' => 'Редактирование тэга к посту'],
+            ['slug' => 'publish-tag', 'name' => 'Публикация тэга к посту'],
+            ['slug' => 'delete-tag', 'name' => 'Удаление тэга к посту'],
         ];
         foreach ($permissions as $item) {
             $permission = new App\Permission();

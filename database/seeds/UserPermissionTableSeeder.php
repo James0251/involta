@@ -13,7 +13,7 @@ class UserPermissionTableSeeder extends Seeder {
         foreach(App\User::all() as $user) {
             foreach(App\Permission::all() as $perm) {
                 if (rand(1, 20) == 10) {
-                    $user->permissions()->attach($perm->id);
+//                    $user->permissions()->attach($perm->id);
                 }
             }
         }

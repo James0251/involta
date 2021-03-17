@@ -9,10 +9,6 @@
                    required maxlength="50" value="{{ old('name') ?? '' }}">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="slug" placeholder="ЧПУ (на англ.)"
-                   required maxlength="50" value="{{ old('slug') ?? '' }}">
-        </div>
-        <div class="form-group">
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
     </form>
