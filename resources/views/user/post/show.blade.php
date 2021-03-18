@@ -16,14 +16,32 @@
             <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
             <div class="mt-4">{!! $post->content !!}</div>
         </div>
-        <div class="card-footer d-flex justify-content-between">
+        <div class="card-footer">
             <span>
                 Автор:
                 <a href="{{ route('blog.author', ['user' => $post->user->id]) }}">
                     {{ $post->user->name }}
                 </a>
+
+
+                {{--========================Количество просмотров To User_Show Self_Post========================--}}
+                <span class="float-right">
+                    <i class="fa fa-eye" aria-hidden="true"></i>  {{ $post->view_count }}
+                </span>
+                {{--========================Количество просмотров To User Show Self_Post========================--}}
+
+
                 <br>
                 Дата: {{ $post->created_at }}
+
+
+                {{--========================Like To User Show Self_Post========================--}}
+                <span class="float-right">
+                    <a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a> 0
+                </span>
+                {{--========================Like To User Show Self_Post========================--}}
+
+
             </span>
             <span>
                 @if ( ! $post->isVisible())

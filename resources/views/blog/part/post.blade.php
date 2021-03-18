@@ -14,13 +14,15 @@
 
 {{--========================Количество просмотров To All Post========================--}}
         <span class="float-left">
-            <a href="#">View</a> 0
+            <i class="fa fa-eye" aria-hidden="true"></i>  {{ $post->view_count }}
         </span>
 {{--========================Количество просмотров To All Post========================--}}
 
 {{--========================Like To All Post========================--}}
         <span class="float-right">
-            <a href="#">Like</a> 0
+            <a href="#">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+            </a> 0
         </span>
 {{--========================Like To All Post========================--}}
 

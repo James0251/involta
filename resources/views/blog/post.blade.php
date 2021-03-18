@@ -22,7 +22,7 @@
 
             {{--========================Количество просмотров To Show Post========================--}}
             <span class="float-right">
-                <a href="#">View</a> 0
+                <i class="fa fa-eye" aria-hidden="true"></i>  {{ $post->view_count }}
             </span>
             {{--========================Количество просмотров To Show Post========================--}}
 
@@ -31,7 +31,9 @@
 
             {{--========================Like To Show Post========================--}}
             <span class="float-right">
-                <a href="#">Like</a> 0
+                    <a href="#">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                    </a> 0
             </span>
             {{--========================Like To Show Post========================--}}
 

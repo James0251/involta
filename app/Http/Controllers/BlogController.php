@@ -31,6 +31,13 @@ class BlogController extends Controller {
             ->published()
             ->orderBy('created_at')
             ->paginate();
+
+        // Считаем количество просмотров отдельного поста из числа Общих Постов
+        $blogKey = 'blog_' . $post->id;
+        if (!\Session::has($blogKey)) {
+            $post->increment('view_count');
+            \Session::put($blogKey, 1);
+        }
         return view('blog.post', compact('post', 'comments'));
     }
 

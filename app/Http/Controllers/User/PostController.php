@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -59,10 +60,18 @@ class PostController extends Controller {
      * Страница пред.просмотра поста блога
      */
     public function show(Post $post) {
+
         // можно просматривать только свои посты
         if ( ! $post->isAuthor()) {
             abort(404);
         }
+
+        $blogKey = $post->id;
+        if (!\Session::has($blogKey)) {
+            $post->increment('view_count');
+            \Session::put($blogKey, 1);
+        }
+
         // сигнализирует о том, что это режим пред.просмотра
         session()->flash('preview', 'yes');
         // все опубликованные комментарии других пользователей
