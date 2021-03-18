@@ -8,16 +8,19 @@
     @php
         $parent_id = old('parent_id') ?? $category->parent_id ?? 0;
     @endphp
+    <label for="parent_id">Выберите категорию: </label>
     <select name="parent_id" class="form-control" title="Родитель">
         <option value="0" disabled>Выберите категорию</option>
         @include('admin.part.parents', ['level' => -1, 'parent' => 0])
     </select>
 </div>
 <div class="form-group">
+    <label for="excerpt">Анонс поста: </label>
     <textarea class="form-control" name="excerpt" placeholder="Анонс поста"
               required maxlength="500">{{ old('excerpt') ?? $post->excerpt ?? '' }}</textarea>
 </div>
 <div class="form-group">
+    <label for="content">Текст поста: </label>
     <textarea class="form-control" name="content" placeholder="Текст поста"
               required rows="4">{{ old('content') ?? $post->content ?? '' }}</textarea>
 </div>

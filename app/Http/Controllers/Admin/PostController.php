@@ -28,6 +28,30 @@ class PostController extends Controller {
         return view('admin.post.index', compact('roots', 'posts'));
     }
 
+    public function store(PostRequest $request) {
+        $image = $request->file('image');
+        if ($image) { // был загружен файл изображения
+            $path = $image->store('post/admin/', 'public');
+            $base = basename($path);
+        }
+
+        $data = $request->input();
+        $data['image'] = $base ?? null;
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $post = (new Post())->create($data);
+        dd($data['image']);
+
+        if ($post) {
+            return redirect()->route('admin.category.index', ['post' => $post->id])
+                ->with(['success' => 'Новая категория успешно создана']);
+        } else {
+            return back();
+        }
+    }
+
     /**
      * Список постов категории блога
      */
@@ -64,28 +88,6 @@ class PostController extends Controller {
     /**
      * Сохраняет новый пост в базу данных
      */
-    public function store(PostRequest $request) {
-        $image = $request->file('image');
-        if ($image) { // был загружен файл изображения
-            $path = $image->store('post/admin/', 'public');
-            $base = basename($path);
-        }
-
-        $data = $request->input();
-        $data['image'] = $base ?? null;
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['name']);
-        }
-
-        $post = (new Post())->create($data);
-
-        if ($post) {
-            return redirect()->route('admin.category.index', ['post' => $post->id])
-                ->with(['success' => 'Новая категория успешно создана']);
-        } else {
-            return back();
-        }
-    }
 
     /**
      * Показывает форму редактирования поста

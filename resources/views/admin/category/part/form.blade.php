@@ -1,4 +1,5 @@
 <div class="form-group">
+    <label for="name">Наименование: </label>
     <input type="text" class="form-control" name="name" placeholder="Наименование"
            required maxlength="100" value="{{ old('name') ?? $category->name ?? '' }}">
 </div>
@@ -6,12 +7,14 @@
     @php
         $parent_id = old('parent_id') ?? $category->parent_id ?? 0;
     @endphp
+    <label for="parent_id">Выберите категорию: </label>
     <select name="parent_id" class="form-control" title="Родитель">
         <option value="0">Без родителя</option>
         @include('admin.part.parents', ['level' => -1, 'parent' => 0])
     </select>
 </div>
 <div class="form-group">
+    <label for="content">Краткое описание: </label>
     <textarea class="form-control" name="content" placeholder="Краткое описание" maxlength="500"
               rows="5">{{ old('content') ?? $category->content ?? '' }}</textarea>
 </div>

@@ -13,7 +13,11 @@
             </h1>
         </div>
         <div class="card-body">
-            <img src="http://via.placeholder.com/1000x300" alt="" class="img-fluid"><br/>
+            @if($post->user_id == 1)
+                <img src="{{ Storage::url('public/post/admin/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
+            @else
+                <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
+            @endif
             <div class="justify-content-center">
                 @perm('manage-posts')
                 {!! $post->content !!}
