@@ -99,7 +99,13 @@ class PostController extends Controller {
         if ($post->isVisible()) {
             abort(404);
         }
-        $post->update($request->all());
+
+        $data = $request->input();
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $post->update($data);
         $post->tags()->sync($request->tags);
         // кнопка редактирования может быть нажата в режиме пред.просмотра
         // или в личном кабинете пользователя, поэтому редирект разный
