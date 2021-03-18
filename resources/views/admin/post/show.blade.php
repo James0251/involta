@@ -26,16 +26,33 @@
                 @endperm
             </div>
         </div>
-        <div class="card-footer d-flex justify-content-between">
+        <div class="card-footer">
             <span>
                 Автор:
                 <a href="{{ route('blog.author', ['user' => $post->user->id]) }}">
                     {{ $post->user->name }}
                 </a>
+
+            {{--========================Количество просмотров и лайков To Admin Show Post========================--}}
+                <span class="float-right">
+                    <i class="fa fa-eye" aria-hidden="true"></i>  {{ $post->view_count }}
+
+                    &nbsp;&nbsp;
+
+                    <a href="#">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </a> 0
+                </span>
+            {{--========================Количество просмотров и лайков To Admin Show Post========================--}}
                 <br>
+
                 Дата: {{ $post->created_at }}
+
             </span>
-            <span>
+
+            <br/>
+
+            <span class="float-right">
                 @perm('publish-post')
                     @if ($post->isVisible())
                     <a href="{{ route('admin.post.disable', ['post' => $post->id]) }}"

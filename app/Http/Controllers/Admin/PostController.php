@@ -64,6 +64,12 @@ class PostController extends Controller {
      * Страница просмотра поста блога
      */
     public function show(Post $post) {
+        $blogKey = 'blog_' . $post->id;
+        if (!\Session::has($blogKey)) {
+            $post->increment('view_count');
+            \Session::put($blogKey, 1);
+        }
+
         // сигнализирует о том, что это режим пред.просмотра
         session()->flash('preview', 'yes');
         return view('admin.post.show', compact('post'));
