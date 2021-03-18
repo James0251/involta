@@ -74,6 +74,12 @@ Route::group([
 ], function () {
     // главная страница
     Route::get('index', 'IndexController')->name('index');
+    // CRUD-операции над постами пользователя
+    Route::resource('post', 'PostController');
+    // CRUD-операции над комментариями пользователя
+    Route::resource('comment', 'CommentController', ['except' => [
+        'create', 'store'
+    ]]);
 });
 
 /*

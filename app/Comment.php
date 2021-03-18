@@ -13,6 +13,41 @@ class Comment extends Model {
         'content',
     ];
 
+    /**
+     * Возвращает true, если пользователь является автором
+     */
+    public function isAuthor() {
+        return $this->user->id === auth()->user()->id;
+    }
+
+    /**
+     * Номер страницы пагинации, на которой расположен комментарий;
+     * все опубликованные + не опубликованные этого пользователя
+     */
+    public function userPageNumber() {
+        // все опубликованные комментарии других пользователей
+        $others = $this->post->comments()->published();
+        // и не опубликованные комментарии этого пользователя
+        $comments = $this->post->comments()
+            ->whereUserId(auth()->user()->id)
+            ->whereNull('published_by')
+            ->union($others)
+            ->orderBy('created_at')
+            ->get();
+        if ($comments->count() == 0) {
+            return 1;
+        }
+        if ($comments->count() <= $this->getPerPage()) {
+            return 1;
+        }
+        foreach ($comments as $i => $comment) {
+            if ($this->id == $comment->id) {
+                break;
+            }
+        }
+        return (int) ceil(($i+1) / $this->getPerPage());
+    }
+
     public function post() {
         return $this->belongsTo(Post::class);
     }

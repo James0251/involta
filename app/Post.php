@@ -18,6 +18,13 @@ class Post extends Model {
     ];
 
     /**
+     * Возвращает true, если пользователь является автором
+     */
+    public function isAuthor() {
+        return $this->user->id === auth()->user()->id;
+    }
+
+    /**
      * Количество постов на странице при пагинации
      */
     protected $perPage = 5;

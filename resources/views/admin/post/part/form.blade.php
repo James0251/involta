@@ -13,15 +13,6 @@
         @include('admin.part.parents', ['level' => -1, 'parent' => 0])
     </select>
 </div>
-{{--<div class="form-group">--}}
-{{--    @php--}}
-{{--        $category_id = old('category_id') ?? $post->category_id ?? 0;--}}
-{{--    @endphp--}}
-{{--    <select name="category_id" class="form-control" title="Категория">--}}
-{{--        <option value="0">Выберите категорию:</option>--}}
-{{--        @include('admin.part.categories', ['level' => -1, 'parent' => 0])--}}
-{{--    </select>--}}
-{{--</div>--}}
 <div class="form-group">
     <textarea class="form-control" name="excerpt" placeholder="Анонс поста"
               required maxlength="500">{{ old('excerpt') ?? $post->excerpt ?? '' }}</textarea>
