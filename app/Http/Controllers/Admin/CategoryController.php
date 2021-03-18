@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller {
 
@@ -38,7 +39,14 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CategoryRequest $request) {
+        $image = $request->file('image');
+        if ($image) { // был загружен файл изображения
+            $path = $image->store('category/admin/', 'public');
+            $base = basename($path);
+        }
+
         $data = $request->input();
+        $data['image'] = $base ?? null;
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name']);
         }
@@ -67,7 +75,24 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(CategoryRequest $request, Category $category) {
+        if ($request->remove) { // если надо удалить изображение
+            $old = $category->image;
+            if ($old) {
+                Storage::disk('public')->delete('category/admin/' . $old);
+            }
+        }
+        $file = $request->file('image');
+        if ($file) { // был загружен файл изображения
+            $path = $file->store('category/admin/', 'public');
+            $base = basename($path);
+            // удаляем старый файл
+            $old = $category->image;
+            if ($old) {
+                Storage::disk('public')->delete('category/admin/' . $old);
+            }
+        }
         $data = $request->input();
+        $data['image'] = $base ?? null;
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name']);
         }
@@ -91,6 +116,12 @@ class CategoryController extends Controller {
         if (!empty($errors)) {
             return back()->withErrors($errors);
         }
+        // удаляем файл изображения
+        $image = $category->image;
+        if ($image) {
+            Storage::disk('public')->delete('category/source/' . $image);
+        }
+        // удаляем категорию блога
         $category->delete();
         return redirect()
             ->route('admin.category.index')

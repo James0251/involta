@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller {
@@ -35,7 +36,14 @@ class PostController extends Controller {
     public function store(PostRequest $request) {
         $request->merge(['user_id' => auth()->user()->id]);
 
+        $image = $request->file('image');
+        if ($image) { // был загружен файл изображения
+            $path = $image->store('post/user/', 'public');
+            $base = basename($path);
+        }
+
         $data = $request->input();
+        $data['image'] = $base ?? null;
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name']);
         }
@@ -100,7 +108,24 @@ class PostController extends Controller {
             abort(404);
         }
 
+        if ($request->remove) { // если надо удалить изображение
+            $old = $post->image;
+            if ($old) {
+                Storage::disk('public')->delete('post/user/' . $old);
+            }
+        }
+        $file = $request->file('image');
+        if ($file) { // был загружен файл изображения
+            $path = $file->store('post/user/', 'public');
+            $base = basename($path);
+            // удаляем старый файл
+            $old = $post->image;
+            if ($old) {
+                Storage::disk('public')->delete('post/user/' . $old);
+            }
+        }
         $data = $request->input();
+        $data['image'] = $base ?? null;
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name']);
         }

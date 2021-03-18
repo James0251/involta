@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Post;
@@ -64,7 +65,14 @@ class PostController extends Controller {
      * Сохраняет новый пост в базу данных
      */
     public function store(PostRequest $request) {
+        $image = $request->file('image');
+        if ($image) { // был загружен файл изображения
+            $path = $image->store('post/admin/', 'public');
+            $base = basename($path);
+        }
+
         $data = $request->input();
+        $data['image'] = $base ?? null;
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name']);
         }
@@ -99,7 +107,24 @@ class PostController extends Controller {
      * Обновляет пост блога в базе данных
      */
     public function update(PostRequest $request, Post $post) {
+        if ($request->remove) { // если надо удалить изображение
+            $old = $post->image;
+            if ($old) {
+                Storage::disk('public')->delete('post/admin/' . $old);
+            }
+        }
+        $file = $request->file('image');
+        if ($file) { // был загружен файл изображения
+            $path = $file->store('post/admin/', 'public');
+            $base = basename($path);
+            // удаляем старый файл
+            $old = $post->image;
+            if ($old) {
+                Storage::disk('public')->delete('post/admin/' . $old);
+            }
+        }
         $data = $request->input();
+        $data['image'] = $base ?? null;
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['name']);
         }
