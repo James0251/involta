@@ -23,6 +23,7 @@ class CreatePostsTable extends Migration
             $table->string('image', 50)->nullable();
             $table->string('excerpt', 500)->nullable(false);
             $table->text('content')->nullable(false);
+            $table->integer('view_count')->default(0);
             $table->timestamps();
 
             // внешний ключ, ссылается на поле id таблицы users

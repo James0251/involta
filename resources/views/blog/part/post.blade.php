@@ -3,15 +3,27 @@
         <h2>{{ $post->name }}</h2>
     </div>
     <div class="card-body">
-{{--        <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">--}}
-        <img src="https://via.placeholder.com/1000x300" alt="" class="img-fluid">
+        @if($post->user_id == 1)
+            <img src="{{ Storage::url('public/post/admin/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
+        @else
+            <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
+        @endif
+
         <p class="mt-3 mb-0">{{ $post->excerpt }}</p>
+        <br/>
+
+{{--========================Количество просмотров To All Post========================--}}
+        <span class="float-left">
+            <a href="#">View</a> 0
+        </span>
+{{--========================Количество просмотров To All Post========================--}}
+
+{{--========================Like To All Post========================--}}
         <span class="float-right">
-                Автор:
-                <a href="#">
-                    {{ $post->user->name }}
-                </a>
-            </span>
+            <a href="#">Like</a> 0
+        </span>
+{{--========================Like To All Post========================--}}
+
     </div>
     <div class="card-footer">
         <div class="clearfix">

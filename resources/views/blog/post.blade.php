@@ -7,7 +7,11 @@
             <h1>{{ $post->name }}</h1>
         </div>
         <div class="card-body">
-            <img src="http://via.placeholder.com/1000x300" alt="" class="img-fluid">
+            @if($post->user_id == 1)
+                <img src="{{ Storage::url('public/post/admin/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
+            @else
+                <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
+            @endif
             <div class="mt-4">{!! $post->content !!}</div>
         </div>
         <div class="card-footer">
@@ -15,8 +19,22 @@
             <a href="{{ route('blog.author', ['user' => $post->user->id]) }}">
                 {{ $post->user->name }}
             </a>
+
+            {{--========================Количество просмотров To Show Post========================--}}
+            <span class="float-right">
+                <a href="#">View</a> 0
+            </span>
+            {{--========================Количество просмотров To Show Post========================--}}
+
             <br>
             Дата: {{ $post->created_at }}
+
+            {{--========================Like To Show Post========================--}}
+            <span class="float-right">
+                <a href="#">Like</a> 0
+            </span>
+            {{--========================Like To Show Post========================--}}
+
         </div>
         @if ($post->tags->count())
             <div class="card-footer">
