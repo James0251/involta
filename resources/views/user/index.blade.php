@@ -16,4 +16,18 @@
     <a href="{{ route('user.comment.index') }}" class="btn btn-primary">
         Ваши комментарии
     </a>
+
+{{--    Если пользователь - Админ, то в личном кабинете видна кнопка перехода в админку--}}
+    @if(auth()->user()->id == 1)
+        <a href="{{ route('admin.index') }}" class="btn btn-primary">
+            Dashboard
+        </a>
+
+{{--    Если пользователь - Юзер, то кнопка перехода скрыта--}}
+    @else
+        <a href="{{ route('admin.index') }}" class="btn btn-primary" hidden>
+            Dashboard
+        </a>
+    @endif
+
 @endsection
