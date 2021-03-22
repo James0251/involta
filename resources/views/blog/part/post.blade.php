@@ -11,21 +11,6 @@
 
         <p class="mt-3 mb-0">{{ $post->excerpt }}</p>
         <br/>
-
-{{--========================Количество просмотров To All Post========================--}}
-        <span class="float-left">
-            <i class="fa fa-eye" aria-hidden="true"></i>  {{ $post->view_count }}
-        </span>
-{{--========================Количество просмотров To All Post========================--}}
-
-{{--========================Like To All Post========================--}}
-        <span class="float-right">
-            <a href="#">
-                <i class="fa fa-heart" aria-hidden="true"></i>
-            </a> 0
-        </span>
-{{--========================Like To All Post========================--}}
-
     </div>
     <div class="card-footer">
         <div class="clearfix">

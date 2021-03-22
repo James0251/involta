@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use App\Like;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -22,6 +23,22 @@ class PostController extends Controller {
     public function index() {
         $posts = Post::whereUserId(auth()->user()->id)->orderByDesc('created_at')->paginate();
         return view('user.post.index', compact('posts'));
+    }
+
+    public function like($id) {
+        $user = \Auth::user()->id;
+        $like_user = Like::where([
+            'user_id' => $user,
+            'post_id' => $id,
+        ])->first();
+        $user_id = \Auth::user()->id;
+        $post_id = $id;
+        $like = new Like();
+        $like->user_id = $user_id;
+        $like->post_id = $post_id;
+        $like->save();
+        return redirect()->back();
+
     }
 
     /**
@@ -66,6 +83,13 @@ class PostController extends Controller {
             abort(404);
         }
 
+        // Количество лайков
+        $likePost = Post::find($post->id);
+        $likeCount = Like::where([
+            'post_id' => $likePost->id
+        ])->count();
+
+        // Количество просмотров
         $blogKey = $post->id;
         if (!\Session::has($blogKey)) {
             $post->increment('view_count');
@@ -83,7 +107,7 @@ class PostController extends Controller {
             ->union($others)
             ->orderBy('created_at')
             ->paginate();
-        return view('user.post.show', compact('post', 'comments'));
+        return view('user.post.show', compact('post', 'comments', 'likeCount'));
     }
 
     /**

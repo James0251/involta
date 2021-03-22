@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Like;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
@@ -60,11 +61,34 @@ class PostController extends Controller {
         return view('admin.post.category', compact('category', 'posts'));
     }
 
+    public function like($id) {
+        $user = \Auth::user()->id;
+        $like_user = Like::where([
+            'user_id' => $user,
+            'post_id' => $id,
+        ])->first();
+        $user_id = \Auth::user()->id;
+        $post_id = $id;
+        $like = new Like();
+        $like->user_id = $user_id;
+        $like->post_id = $post_id;
+        $like->save();
+        return redirect()->back();
+    }
+
     /**
      * Страница просмотра поста блога
      */
     public function show(Post $post) {
-        $blogKey = 'blog_' . $post->id;
+
+        // Количество лайков
+        $likePost = Post::find($post->id);
+        $likeCount = Like::where([
+            'post_id' => $likePost->id
+        ])->count();
+
+        // Количество просмотров
+        $blogKey = $post->id;
         if (!\Session::has($blogKey)) {
             $post->increment('view_count');
             \Session::put($blogKey, 1);
@@ -72,7 +96,7 @@ class PostController extends Controller {
 
         // сигнализирует о том, что это режим пред.просмотра
         session()->flash('preview', 'yes');
-        return view('admin.post.show', compact('post'));
+        return view('admin.post.show', compact('post', 'likeCount'));
     }
 
     /**

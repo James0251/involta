@@ -39,9 +39,8 @@
 
                     &nbsp;&nbsp;
 
-                    <a href="#">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </a> 0
+                    <a href="{{ url("/admin/like/{$post->id}") }}"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                    {{ $likeCount }}
                 </span>
             {{--========================Количество просмотров и лайков To Admin Show Post========================--}}
                 <br>

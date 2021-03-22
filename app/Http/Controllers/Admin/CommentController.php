@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
+use App\Like;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
@@ -29,10 +30,32 @@ class CommentController extends Controller {
         return view('admin.comment.index', compact('comments', 'posts', 'users'));
     }
 
+    public function like($id) {
+        $user = \Auth::user()->id;
+        $like_user = Like::where([
+            'user_id' => $user,
+            'post_id' => $id,
+        ])->first();
+        $user_id = \Auth::user()->id;
+        $post_id = $id;
+        $like = new Like();
+        $like->user_id = $user_id;
+        $like->post_id = $post_id;
+        $like->save();
+        return redirect()->back();
+    }
+
     /**
      * Просмотр комментария к посту блога
      */
     public function show(Comment $comment) {
+
+        // Количество лайков
+        $likePost = Comment::find($comment->post_id);
+        $likeCount = Like::where([
+            'post_id' => $likePost->id
+        ])->count();
+
         // сигнализирует о том, что это режим пред.просмотра
         session()->flash('preview', 'yes');
         // это тот пост блога, к которому оставлен комментарий
@@ -40,7 +63,7 @@ class CommentController extends Controller {
         // коллекция всех комментариев к этому посту блога
         $comments = $post->comments()->orderBy('created_at')->paginate();
         // используем шаблон предварительного просмотра поста
-        return view('admin.post.show', compact('post', 'comments'));
+        return view('admin.post.show', compact('post', 'comments', 'likeCount'));
     }
 
     /**

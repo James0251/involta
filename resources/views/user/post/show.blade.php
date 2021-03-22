@@ -37,7 +37,7 @@
 
                 {{--========================Like To User Show Self_Post========================--}}
                 <span class="float-right">
-                    <a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a> 0
+                    <a href="{{ url("/user/like/{$post->id}") }}"><i class="fa fa-heart" aria-hidden="true"></i></a> {{ $likeCount }}
                 </span>
                 {{--========================Like To User Show Self_Post========================--}}
 

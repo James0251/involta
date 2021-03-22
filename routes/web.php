@@ -76,6 +76,8 @@ Route::group([
     Route::get('index', 'IndexController')->name('index');
     // CRUD-операции над постами пользователя
     Route::resource('post', 'PostController');
+    // Лайк для собственного поста Пользователя
+    Route::get('/like/{id}', 'PostController@like');
     // CRUD-операции над комментариями пользователя
     Route::resource('comment', 'CommentController', ['except' => [
         'create', 'store'
@@ -113,6 +115,8 @@ Route::group([
     // страница просмотра поста блога
     Route::get('post/{post:slug}', [BlogController::class, 'post'])
         ->name('post');
+    // лайк для любого поста Любого Пользователя
+    Route::get('/like/{id}', [BlogController::class, 'like']);
     // добавление комментария к посту
     Route::post('post/{post}/comment', [BlogController::class, 'comment'])
         ->name('comment');
@@ -145,6 +149,8 @@ Route::group([
     // доп.маршрут, чтобы запретить публикацию поста
     Route::get('post/disable/{post}', 'PostController@disable')
         ->name('post.disable');
+    // лайк постов для Админа
+    Route::get('/like/{id}', 'PostController@like');
 
     /*
      * CRUD-операции над категориями блога

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Comment;
+use App\Like;
 use App\Post;
 use App\Tag;
 use App\User;
@@ -23,6 +24,21 @@ class BlogController extends Controller {
         return view('blog.index', compact('posts'));
     }
 
+    public function like($id) {
+        $user = \Auth::user()->id;
+        $like_user = Like::where([
+            'user_id' => $user,
+            'post_id' => $id,
+        ])->first();
+        $user_id = \Auth::user()->id;
+        $post_id = $id;
+        $like = new Like();
+        $like->user_id = $user_id;
+        $like->post_id = $post_id;
+        $like->save();
+        return redirect()->back();
+    }
+
     /**
      * Страница просмотра отдельного поста блога
      */
@@ -32,13 +48,19 @@ class BlogController extends Controller {
             ->orderBy('created_at')
             ->paginate();
 
-        // Считаем количество просмотров отдельного поста из числа Общих Постов
+        // Количество лайков
+        $likePost = Post::find($post->id);
+        $likeCount = Like::where([
+            'post_id' => $likePost->id
+        ])->count();
+
+        // Количество просмотров
         $blogKey = 'blog_' . $post->id;
         if (!\Session::has($blogKey)) {
             $post->increment('view_count');
             \Session::put($blogKey, 1);
         }
-        return view('blog.post', compact('post', 'comments'));
+        return view('blog.post', compact('post', 'comments', 'likeCount'));
     }
 
     /**

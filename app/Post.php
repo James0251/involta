@@ -24,6 +24,10 @@ class Post extends Model {
         return $this->user->id === auth()->user()->id;
     }
 
+    public function likes() {
+        return $this->hasMany(Like::class, 'post_id')->sum('like_count');
+    }
+
     /**
      * Количество постов на странице при пагинации
      */
