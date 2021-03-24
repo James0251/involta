@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 $factory->define(Post::class, function (Faker $faker) {
     $name = $faker->realText(rand(70, 100));
+    $createdAt = $faker->dateTimeBetween('-2 months', '- 5 days');
     return [
         'user_id' => rand(1, 10),
         'category_id' => rand(1, 12),
@@ -15,6 +16,8 @@ $factory->define(Post::class, function (Faker $faker) {
         'excerpt' => $faker->realText(rand(300, 400)),
         'content' => $faker->realText(rand(400, 500)),
         'slug' => Str::slug($name),
-        'published_by' => rand(1, 10),
+        'published_by' => 1,
+        'created_at' => $createdAt,
+        'updated_at' => $createdAt
     ];
 });

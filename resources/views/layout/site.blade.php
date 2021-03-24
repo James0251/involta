@@ -47,8 +47,8 @@
                 </div>
             @endif
 
-                <h4>Категории блога</h4>
-                @include('layout.part.categories', ['parent' => 0, 1])
+                @include('layout.part.categories', ['parent' => 0])
+
             @yield('content')
         </div>
     </div>

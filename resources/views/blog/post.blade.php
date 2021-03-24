@@ -7,11 +7,11 @@
             <h1>{{ $post->name }}</h1>
         </div>
         <div class="card-body">
-            @if($post->user_id == 1)
+{{--            @if($post->user_id == 1)--}}
                 <img src="{{ Storage::url('public/post/admin/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
-            @else
-                <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
-            @endif
+{{--            @else--}}
+{{--                <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">--}}
+{{--            @endif--}}
             <div class="mt-4">{!! $post->content !!}</div>
         </div>
         <div class="card-footer">

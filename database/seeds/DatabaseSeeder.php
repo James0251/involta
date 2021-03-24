@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoryTableSeeder::class);
         $this->command->info('Таблица категорий загружена данными!');
 
-        $this->call(TagTableSeeder::class);
-        $this->command->info('Таблица тегов загружена данными!');
-
         $this->call(PostTableSeeder::class);
         $this->command->info('Таблица постов загружена данными!');
+
+        $this->call(TagTableSeeder::class);
+        $this->command->info('Таблица тегов загружена данными!');
 
         $this->call(PostTagTableSeeder::class);
         $this->command->info('Таблица пост-тег загружена данными!');
