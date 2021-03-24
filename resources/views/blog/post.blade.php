@@ -31,7 +31,7 @@
 
             {{--========================Like To Show Post========================--}}
             <span class="float-right">
-                    <a href="{{ url("/blog/like/{$post->id}") }}"><i class="fa fa-heart" aria-hidden="true"></i></a> {{ $likeCount }}
+                    <a href="{{ url("/user/like/{$post->id}") }}"><i class="fa fa-heart" aria-hidden="true"></i></a> {{ $likeCount }}
             </span>
             {{--========================Like To Show Post========================--}}
 

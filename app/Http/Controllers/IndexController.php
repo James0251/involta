@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,11 @@ class IndexController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request) {
-        return view('index');
+        $posts = Post::published()
+            ->with('user')->with('tags')
+            ->orderByDesc('created_at')
+            ->paginate();
+
+        return view('index', compact('posts'));
     }
 }

@@ -1,5 +1,5 @@
 @if ($items->where('parent_id', $parent)->count())
-    <ul>
+    <ul class="menu">
         @foreach ($items->where('parent_id', $parent) as $item)
             <li>
                 <a href="{{ route('blog.category', ['category' => $item->slug]) }}">{{ $item->name }}</a>

@@ -1,81 +1,69 @@
-/*
-*
-* ==========================================
-* CUSTOM UTIL CLASSES
-* ==========================================
-*
-*/
-
-.vertical-nav {
-    min-width: 17rem;
-    width: 17rem;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s;
+.menu{
+    display:block;
 }
-
-.page-content {
-    width: calc(100% - 17rem);
-    margin-left: 17rem;
-    transition: all 0.4s;
+.menu li{
+    display: inline-block;
+    position: relative;
+    z-index:100;
 }
+.menu li a {
+    font-weight:600;
+    text-decoration:none;
+    padding:11px;
+    display:block;
+    color:#212529;
 
-/* for toggle behavior */
-
-#sidebar.active {
-    margin-left: -17rem;
+    -webkit-transition: all 0.2s ease-in-out 0s;
+    -moz-transition: all 0.2s ease-in-out 0s;
+    -o-transition: all 0.2s ease-in-out 0s;
+    -ms-transition: all 0.2s ease-in-out 0s;
+    transition: all 0.2s ease-in-out 0s;
 }
-
-#content.active {
-    width: 100%;
+.menu li a:hover,
+.menu li:hover > a{
+    color:#ffffff; /* цвет ссылки */
+    background:#212529; /* задний фон ссылки */
+}
+/* скрываем меню второго уровеня */
+.menu ul {
+    display: none;
     margin: 0;
+    padding: 0;
+    width: 150px;
+    position: absolute;
+    top: 43px;
+    left: 0px;
+    background: #2F4F4F;
 }
-
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -17rem;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #content {
-        width: 100%;
-        margin: 0;
-    }
-    #content.active {
-        margin-left: 17rem;
-        width: calc(100% - 17rem);
-    }
+/* показываем меню второго уровня при наведении */
+.menu li:hover > ul{
+    display: block;
 }
-
-/*
-*
-* ==========================================
-* FOR DEMO PURPOSE
-* ==========================================
-*
-*/
-
-body {
-    background: #599fd9;
-    background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
-    background: linear-gradient(to right, #599fd9, #c2e59c);
-    min-height: 100vh;
-    overflow-x: hidden;
+.menu ul li {
+    display:block;
+    float: none;
+    background:none;
+    margin:0;
+    padding:0;
 }
+.menu ul li a {
+    width: 300px;
+    font-size:16px;
+    font-weight:bold;
+    display:block;
+    color:#ffffff;
+    border:3px solid #7B68EE; /* цвет бортика раскрывающегося меню */
+    background:#212529; /* задний фон раскрывающегося меню */
 
-.separator {
-    margin: 3rem 0;
-    border-bottom: 1px dashed #fff;
 }
-
-.text-uppercase {
-    letter-spacing: 0.1em;
+.menu ul li a:hover,
+.menu ul li:hover > a{
+    background:#f0f0f0; /* цвет фона при наведении мышью */
+    border-left:3px solid #9CA3DA; /* цвет бортика при наведении мышью */
+    color:#797979; /* цвет ссылки при наведении мышью */
 }
-
-.text-gray {
-    color: #aaa;
+/* Изменение позиций для меню третьего уровня */
+.menu ul ul {
+    left: 300px;
+    top: 0px;
 }

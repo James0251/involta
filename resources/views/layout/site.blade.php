@@ -6,6 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? env('APP_NAME') }}</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/menu.js') }}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Font Awesome -->
@@ -18,8 +20,7 @@
 
     <div class="row">
         <div class="col-md-3">
-            <h4>Категории блога</h4>
-            @include('layout.part.categories', ['parent' => 0])
+
             <h4>Популярные теги</h4>
             @include('layout.part.popular-tags')
         </div>
@@ -46,6 +47,8 @@
                 </div>
             @endif
 
+                <h4>Категории блога</h4>
+                @include('layout.part.categories', ['parent' => 0, 1])
             @yield('content')
         </div>
     </div>
