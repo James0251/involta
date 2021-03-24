@@ -17,6 +17,10 @@ use App\Http\Controllers\BlogController;
 // маршрут для главной страницы без указания метода
 Route::get('/', 'IndexController')->name('index');
 
+// Поиск
+Route::get('/search', 'SearchController@getResults')->name('search.results');
+
+
 /*
  * Регистрация, вход в ЛК, восстановление пароля
  */

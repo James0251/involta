@@ -22,8 +22,8 @@
             </li>
         </ul>
         <!-- Этот блок расположен посередине -->
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search"
+        <form class="form-inline my-2 my-lg-0" action="{{ route('search.results') }}">
+            <input name="query" class="form-control mr-sm-2" type="search"
                    placeholder="Поиск по блогу" aria-label="Search">
             <button class="btn btn-outline-info my-2 my-sm-0"
                     type="submit">Искать</button>
