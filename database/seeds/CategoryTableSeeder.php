@@ -24,7 +24,7 @@ class CategoryTableSeeder extends Seeder {
 
         for ($i = 1; $i <= 11; $i++) {
             $name = 'Категория №' . $i;
-            $parentId = ($i > 4) ? rand(0, 3) : 0;
+            $parentId = ($i > 2) ? rand(0, 4) : 0;
             $categories[] = [
                 'name' => $name,
                 'content' => $faker->realText(rand(200, 500)),

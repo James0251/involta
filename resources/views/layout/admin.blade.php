@@ -6,7 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/menu.js') }}">
     <title>{{ $title ?? 'Панель управления' }}</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -21,7 +22,9 @@
             <div class="media d-flex align-items-center"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556074849/avatar-1_tcnd60.png" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
                 <div class="media-body">
                     <h4 class="m-0">{{ auth()->user()->name }}</h4>
-                    <p class="font-weight-light text-muted mb-0">Администратор</p>
+                    <p class="font-weight-light text-muted mb-0">
+                        {{ \Illuminate\Support\Facades\Auth::user()->roles()->first()->name }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -86,77 +89,77 @@
 
     <div class="page-content p-5" id="content">
         <!-- Demo content -->
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">content_copy</i>
-                        </div>
-                        <p class="card-category">Used Space</p>
-                        <h3 class="card-title">49/50
-                            <small>GB</small>
-                        </h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a href="#pablo">Get More Space...</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-success card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">store</i>
-                        </div>
-                        <p class="card-category">Revenue</p>
-                        <h3 class="card-title">$34,245</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-danger card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">info_outline</i>
-                        </div>
-                        <p class="card-category">Fixed Issues</p>
-                        <h3 class="card-title">75</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">local_offer</i> Tracked from Github
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-info card-header-icon">
-                        <div class="card-icon">
-                            <i class="fa fa-twitter"></i>
-                        </div>
-                        <p class="card-category">Followers</p>
-                        <h3 class="card-title">+245</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">update</i> Just Updated
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--        <div class="row clearfix">--}}
+{{--            <div class="col-lg-3 col-md-6 col-sm-6">--}}
+{{--                <div class="card card-stats">--}}
+{{--                    <div class="card-header card-header-warning card-header-icon">--}}
+{{--                        <div class="card-icon">--}}
+{{--                            <i class="material-icons">content_copy</i>--}}
+{{--                        </div>--}}
+{{--                        <p class="card-category">Used Space</p>--}}
+{{--                        <h3 class="card-title">49/50--}}
+{{--                            <small>GB</small>--}}
+{{--                        </h3>--}}
+{{--                    </div>--}}
+{{--                    <div class="card-footer">--}}
+{{--                        <div class="stats">--}}
+{{--                            <i class="material-icons text-danger">warning</i>--}}
+{{--                            <a href="#pablo">Get More Space...</a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col-lg-3 col-md-6 col-sm-6">--}}
+{{--                <div class="card card-stats">--}}
+{{--                    <div class="card-header card-header-success card-header-icon">--}}
+{{--                        <div class="card-icon">--}}
+{{--                            <i class="material-icons">store</i>--}}
+{{--                        </div>--}}
+{{--                        <p class="card-category">Revenue</p>--}}
+{{--                        <h3 class="card-title">$34,245</h3>--}}
+{{--                    </div>--}}
+{{--                    <div class="card-footer">--}}
+{{--                        <div class="stats">--}}
+{{--                            <i class="material-icons">date_range</i> Last 24 Hours--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col-lg-3 col-md-6 col-sm-6">--}}
+{{--                <div class="card card-stats">--}}
+{{--                    <div class="card-header card-header-danger card-header-icon">--}}
+{{--                        <div class="card-icon">--}}
+{{--                            <i class="material-icons">info_outline</i>--}}
+{{--                        </div>--}}
+{{--                        <p class="card-category">Fixed Issues</p>--}}
+{{--                        <h3 class="card-title">75</h3>--}}
+{{--                    </div>--}}
+{{--                    <div class="card-footer">--}}
+{{--                        <div class="stats">--}}
+{{--                            <i class="material-icons">local_offer</i> Tracked from Github--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col-lg-3 col-md-6 col-sm-6">--}}
+{{--                <div class="card card-stats">--}}
+{{--                    <div class="card-header card-header-info card-header-icon">--}}
+{{--                        <div class="card-icon">--}}
+{{--                            <i class="fa fa-twitter"></i>--}}
+{{--                        </div>--}}
+{{--                        <p class="card-category">Followers</p>--}}
+{{--                        <h3 class="card-title">+245</h3>--}}
+{{--                    </div>--}}
+{{--                    <div class="card-footer">--}}
+{{--                        <div class="stats">--}}
+{{--                            <i class="material-icons">update</i> Just Updated--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
-        <div class="separator"></div>
+{{--        <div class="separator"></div>--}}
 
         <div class="row">
             <div class="col">

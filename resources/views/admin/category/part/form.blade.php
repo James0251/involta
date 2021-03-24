@@ -31,4 +31,5 @@
 @endisset
 <div class="form-group">
     <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="/admin/category" class="btn btn-primary">Назад</a>
 </div>

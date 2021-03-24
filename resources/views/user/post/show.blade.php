@@ -13,6 +13,7 @@
             </h1>
         </div>
         <div class="card-body">
+            <img src="{{ Storage::url('public/post/admin/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
             <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
             <div class="mt-4">{!! $post->content !!}</div>
         </div>

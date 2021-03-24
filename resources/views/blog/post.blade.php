@@ -7,11 +7,11 @@
             <h1>{{ $post->name }}</h1>
         </div>
         <div class="card-body">
-{{--            @if($post->user_id == 1)--}}
+
                 <img src="{{ Storage::url('public/post/admin/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
-{{--            @else--}}
-{{--                <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">--}}
-{{--            @endif--}}
+
+                <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
+
             <div class="mt-4">{!! $post->content !!}</div>
         </div>
         <div class="card-footer">
@@ -34,6 +34,12 @@
                     <a href="{{ url("/user/like/{$post->id}") }}"><i class="fa fa-heart" aria-hidden="true"></i></a> {{ $likeCount }}
             </span>
             {{--========================Like To Show Post========================--}}
+
+            <br/>
+
+            <a href="/blog/category/{{$post->category->slug}}">
+                <span class="justify-content-center">Читайте также (материалы по теме) </span>
+            </a>
 
         </div>
         @if ($post->tags->count())

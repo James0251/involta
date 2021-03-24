@@ -1,13 +1,14 @@
 <div class="card mb-4">
+
     <div class="card-header">
         <h2>{{ $post->name }}</h2>
     </div>
     <div class="card-body">
-{{--        @if($post->user_id == 1)--}}
+
             <img src="{{ Storage::url('public/post/admin/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
-{{--        @else--}}
-{{--            <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">--}}
-{{--        @endif--}}
+
+            <img src="{{ Storage::url('public/post/user/'.$post->image) ?? asset('img/404.jpg') }}" alt="" class="img-fluid">
+
 
         <p class="mt-3 mb-0">{{ $post->excerpt }}</p>
         <br/>

@@ -14,13 +14,6 @@
             </div>
             <div class="card-footer p-2">
                 {{ $comment->created_at }}
-
-{{--========================Like To Comment========================--}}
-                <span class="float-right">
-                    <a href="#">Like</a> 0
-                </span>
-{{--========================Like To Comment========================--}}
-
             </div>
         </div>
     @endforeach
