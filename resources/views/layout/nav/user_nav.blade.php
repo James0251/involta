@@ -14,12 +14,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('blog.index') }}">Блог</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Теги</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Контакты</a>
-            </li>
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="#">Теги</a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="#">Контакты</a>--}}
+{{--            </li>--}}
         </ul>
         <!-- Этот блок расположен посередине -->
         <form class="form-inline my-2 my-lg-0" action="{{ route('search.results') }}">
