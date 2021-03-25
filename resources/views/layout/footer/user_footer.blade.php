@@ -103,7 +103,7 @@
                         <i class="fas fa-envelope mr-3"></i><a href="info@involta.ru">info@involta.ru</a>
                     </p>
                     <p>
-                        <i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;&nbsp;&nbsp;<a href="vk.com/involta">vk.com/involta</a>
+                        <i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://vk.com/involta">vk.com/involta</a>
                     </p>
                     <p>
                         <i class="fas fa-phone mr-3"></i> 8 (800) 555-77-33</p>
