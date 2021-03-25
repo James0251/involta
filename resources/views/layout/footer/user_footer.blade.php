@@ -134,7 +134,7 @@
 
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3 text-white">© 2021 Copyright:
-            <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+            <a href="https://vk.com/id150963722"> Денисов Антон</a> 25.03.2021 03:00
         </div>
         <!-- Copyright -->
 
